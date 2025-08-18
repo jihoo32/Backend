@@ -32,10 +32,10 @@ public class QueryController {
             @ApiResponse(responseCode = "404", description = "채팅방을 찾을 수 없음")
     })
     @PostMapping("/queries")
-    public ResponseEntity<Integer> createQuery(@PathVariable Integer chatId, Integer novelId,
+    public ResponseEntity<Integer> createQuery(@PathVariable Integer novelId,
                                                @RequestBody QueryCreateRequest request, String token) {
-        QueryDto queryDto = queryService.createQuery(chatId, novelId, request.getQueryContent(), token);
-        return ResponseEntity.status(HttpStatus.CREATED).body(chatId);
+        QueryDto queryDto = queryService.createQuery(request.getChatId(), novelId, request.getQueryContent(), token);
+        return ResponseEntity.status(HttpStatus.CREATED).body(request.getChatId());
     }
 
     @Operation(summary = "질문 목록 조회", description = "채팅방의 모든 질문을 조회하는 API")
